@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المحاضرة الأولى — مقدمة HTML | Sunshine T Academy</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Fira+Code:wght@400;500&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --primary: #667eea;
+        --primary-dark: #4c5fd5;
+        --secondary: #764ba2;
+        --accent: #f39c12;
+        --success: #27ae60;
+        --danger: #e74c3c;
+        --dark: #2c3e50;
+        --light: #f8f9fa;
+        --code-bg: #1e1e2e;
+        --code-header: #181825;
+    }
+
+    body {
+        font-family: 'Cairo', sans-serif;
+        line-height: 1.85;
+        color: var(--dark);
+        background: #eef1f7;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 210mm;
+        margin: 0 auto;
+        background: #fff;
+        padding: 40px;
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.15);
+        border-radius: 12px;
+    }
+
+    /* ═══ Header ═══ */
+    .header {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: white;
+        padding: 35px 30px;
+        border-radius: 12px;
+        margin: -40px -40px 35px -40px;
+        text-align: center;
+    }
+    .header h1 { font-size: 2.1em; font-weight: 900; margin-bottom: 8px; }
+    .header .subtitle { font-size: 1.15em; opacity: .95; font-weight: 600; }
+    .lecture-info {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+        padding: 14px;
+        background: rgba(255,255,255,.15);
+        border-radius: 10px;
+        font-size: .95em;
+    }
+    .lecture-info div { text-align: center; }
+    .lecture-info strong { display: block; font-size: .85em; opacity: .85; margin-bottom: 3px; }
+
+    /* ═══ Sections ═══ */
+    .section { margin: 32px 0; page-break-inside: avoid; }
+    .section-title {
+        font-size: 1.55em;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 16px;
+        padding-right: 14px;
+        border-right: 5px solid var(--secondary);
+        display: block;
+    }
+
+    /* ═══ Objectives ═══ */
+    .objectives {
+        background: linear-gradient(135deg, #fff8e1 0%, #ffeaa7 100%);
+        padding: 22px;
+        border-radius: 12px;
+        border-right: 5px solid var(--accent);
+    }
+    .objectives h3 { color: #d35400; margin-bottom: 14px; font-size: 1.25em; }
+    .objectives ul { list-style: none; }
+    .objectives li { padding: 6px 26px 6px 0; position: relative; }
+    .objectives li::before {
+        content: "✓";
+        position: absolute;
+        right: 0;
+        color: var(--success);
+        font-weight: 900;
+        font-size: 1.1em;
+    }
+
+    /* ═══ Content Box ═══ */
+    .content-box {
+        background: var(--light);
+        padding: 22px;
+        border-radius: 10px;
+        margin: 15px 0;
+        border-right: 4px solid var(--primary);
+    }
+    .content-box h4 { color: var(--primary-dark); margin: 15px 0 10px; }
+    .content-box ul { padding-right: 22px; }
+    .content-box li { padding: 4px 0; }
+
+    /* ═══ Key Term ═══ */
+    .key-term {
+        background: #fff3cd;
+        padding: 2px 9px;
+        border-radius: 5px;
+        font-weight: 700;
+        color: #856404;
+        border: 1px solid #ffeaa7;
+    }
+
+    /* ═══ Notes ═══ */
+    .note {
+        background: #fff5f5;
+        padding: 15px 20px;
+        border-radius: 10px;
+        border-right: 5px solid var(--danger);
+        margin: 16px 0;
+    }
+    .note strong { color: #c0392b; }
+
+    /* ═══════════════════════════════════════════
+       🎨 CODE EDITOR STYLE — الشكل الواقعي
+       ═══════════════════════════════════════════ */
+    .code-editor {
+        background: var(--code-bg);
+        border-radius: 12px;
+        margin: 20px 0;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0,0,0,.18);
+        direction: ltr;
+        text-align: left;
+    }
+
+    /* شريط المحرر — Mac Style */
+    .editor-bar {
+        background: var(--code-header);
+        padding: 11px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-bottom: 1px solid #313244;
+    }
+    .editor-dots { display: flex; gap: 7px; }
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .dot.red { background: #ff5f57; }
+    .dot.yellow { background: #febc2e; }
+    .dot.green { background: #28c840; }
+    .editor-filename {
+        margin-left: auto;
+        margin-right: auto;
+        color: #a6adc8;
+        font-family: 'Fira Code', monospace;
+        font-size: .85em;
+        font-weight: 500;
+        letter-spacing: .3px;
+    }
+
+    /* 🎯 مربع الكود الحقيقي */
+    .code-editor pre {
+        margin: 0;
+        padding: 20px 22px;
+        overflow-x: auto;
+        font-family: 'Fira Code', 'Courier New', monospace;
+        font-size: 14.5px;
+        line-height: 1.75;
+        color: #cdd6f4;
+        white-space: pre;        /* ← أهم سطر: بيحافظ على كل مسافة وسطر */
+        tab-size: 4;
+        direction: ltr;
+        text-align: left;
+        -moz-tab-size: 4;
+    }
+    .code-editor pre::-webkit-scrollbar { height: 8px; }
+    .code-editor pre::-webkit-scrollbar-thumb { background: #45475a; border-radius: 4px; }
+
+    /* ═══ Syntax Highlighting — Catppuccin Theme ═══ */
+    .tag       { color: #f38ba8; }                /* pink — للـ tags */
+    .attr      { color: #fab387; }                /* orange — للـ attributes */
+    .value     { color: #a6e3a1; }                /* green — للـ values */
+    .text      { color: #cdd6f4; }                /* white — للنص العادي */
+    .comment   { color: #6c7086; font-style: italic; } /* gray — للتعليقات */
+    .doctype   { color: #cba6f7; font-weight: 600; }   /* purple */
+    .bracket   { color: #89b4fa; }                /* blue */
+    .equals    { color: #94e2d5; }                /* cyan */
+
+    /* ═══ Output Preview ═══ */
+    .output {
+        background: #fff;
+        border: 2px dashed var(--primary);
+        border-radius: 10px;
+        padding: 18px;
+        margin: 18px 0;
+    }
+    .output::before {
+        content: "🌐 النتيجة في المتصفح";
+        display: block;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 12px;
+        font-size: .95em;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+    }
+
+    /* ═══ Example Box ═══ */
+    .example {
+        background: #f0fdf4;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 16px 0;
+        border-right: 5px solid var(--success);
+    }
+    .example h4 { color: var(--success); margin-bottom: 10px; }
+
+    /* ═══ Tables ═══ */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 16px 0;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        font-size: .95em;
+    }
+    table th {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: white;
+        padding: 12px 14px;
+        text-align: right;
+        font-weight: 700;
+    }
+    table td {
+        padding: 11px 14px;
+        border-bottom: 1px solid #e9ecf3;
+    }
+    table tr:nth-child(even) { background: #f8f9fb; }
+    table tr:last-child td { border-bottom: none; }
+    table code {
+        background: #eef1f7;
+        padding: 3px 8px;
+        border-radius: 5px;
+        color: var(--primary-dark);
+        font-family: 'Fira Code', monospace;
+        font-size: .9em;
+        direction: ltr;
+        display: inline-block;
+    }
+
+    /* ═══ Steps ═══ */
+    .steps { counter-reset: step; list-style: none; }
+    .steps li {
+        counter-increment: step;
+        padding: 14px 60px 14px 16px;
+        margin: 10px 0;
+        background: white;
+        border-radius: 10px;
+        border-right: 4px solid var(--primary);
+        position: relative;
+        box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .steps li::before {
+        content: counter(step);
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        color: white;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: .95em;
+    }
+
+    /* ═══ Quiz ═══ */
+    .quiz {
+        background: linear-gradient(135deg, #f3e7ff 0%, #e0d1f5 100%);
+        padding: 28px 24px;
+        border-radius: 14px;
+        margin: 35px 0;
+        page-break-before: always;
+    }
+    .quiz > h3 {
+        color: #6b21a8;
+        margin-bottom: 22px;
+        font-size: 1.4em;
+        text-align: center;
+        padding-bottom: 12px;
+        border-bottom: 2px dashed #a78bfa;
+    }
+    .question {
+        background: white;
+        padding: 16px 18px;
+        border-radius: 10px;
+        margin: 13px 0;
+        border-right: 4px solid #8b5cf6;
+        box-shadow: 0 2px 10px rgba(139, 92, 246, .08);
+    }
+    .question h4 { color: #6b21a8; margin-bottom: 10px; font-size: 1em; }
+    .options { list-style: none; }
+    .options li {
+        padding: 8px 14px;
+        margin: 5px 0;
+        background: #f8f9fb;
+        border-radius: 7px;
+        font-size: .93em;
+        direction: ltr;
+        text-align: left;
+        font-family: 'Fira Code', monospace;
+        color: #374151;
+    }
+    .options li.ar {
+        direction: rtl;
+        text-align: right;
+        font-family: 'Cairo', sans-serif;
+    }
+
+    /* ═══ Homework ═══ */
+    .homework {
+        background: linear-gradient(135deg, #fff1f0 0%, #ffe0db 100%);
+        padding: 28px 24px;
+        border-radius: 14px;
+        margin: 35px 0;
+        page-break-before: always;
+    }
+    .homework > h3 {
+        color: #b91c1c;
+        margin-bottom: 22px;
+        font-size: 1.4em;
+        text-align: center;
+        padding-bottom: 12px;
+        border-bottom: 2px dashed #f87171;
+    }
+    .task {
+        background: white;
+        padding: 18px;
+        border-radius: 10px;
+        margin: 14px 0;
+        border-right: 4px solid var(--danger);
+        box-shadow: 0 2px 10px rgba(231, 76, 60, .08);
+    }
+    .task h4 {
+        color: #b91c1c;
+        margin-bottom: 10px;
+        font-size: 1.05em;
+    }
+    .task ul { padding-right: 22px; margin-top: 6px; }
+    .task ul li { padding: 3px 0; font-size: .95em; }
+
+    /* ═══ Summary ═══ */
+    .summary {
+        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        padding: 22px;
+        border-radius: 12px;
+        border-right: 5px solid var(--success);
+        margin: 20px 0;
+    }
+    .summary h3 { color: var(--success); margin-bottom: 14px; }
+    .summary ul { list-style: none; }
+    .summary li {
+        padding: 6px 26px 6px 0;
+        position: relative;
+        font-weight: 500;
+    }
+    .summary li::before {
+        content: "✓";
+        position: absolute;
+        right: 0;
+        color: var(--success);
+        font-weight: 900;
+    }
+
+    /* ═══ Footer ═══ */
+    .footer {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 22px;
+        border-top: 2px solid var(--primary);
+        color: #7f8c8d;
+        font-size: .95em;
+    }
+    .footer strong { color: var(--primary-dark); font-size: 1.05em; }
+    .next-lecture {
+        margin-top: 14px;
+        padding: 12px;
+        background: linear-gradient(135deg, #eef1f7 0%, #e0e7ff 100%);
+        border-radius: 8px;
+        color: var(--primary-dark);
+        font-weight: 600;
+    }
+
+    /* ═══ Print ═══ */
+    @media print {
+        body { background: white; padding: 0; }
+        .container { box-shadow: none; padding: 20px; }
+        .section { page-break-inside: avoid; }
+        .quiz, .homework { page-break-before: always; }
+        .code-editor { box-shadow: none; }
+        .header { margin: -20px -20px 25px -20px; }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ═══════ HEADER ═══════ -->
+    <header class="header">
+        <h1>🌟 Sunshine T Academy</h1>
+        <div class="subtitle">Frontend Development Course</div>
+        <div class="lecture-info">
+            <div><strong>المحاضرة</strong><span>الأولى</span></div>
+            <div><strong>الموضوع</strong><span>مقدمة HTML</span></div>
+            <div><strong>المستوى</strong><span>مبتدئ</span></div>
+        </div>
+    </header>
+
+    <!-- ═══════ OBJECTIVES ═══════ -->
+    <section class="section">
+        <div class="objectives">
+            <h3>🎯 أهداف المحاضرة</h3>
+            <ul>
+                <li>فهم ما هو HTML وما هي وظيفته الأساسية</li>
+                <li>معرفة البنية الأساسية لأي صفحة HTML</li>
+                <li>كتابة أول صفحة ويب بنفسك من الصفر</li>
+                <li>فهم معنى Tags و Elements و Attributes</li>
+                <li>التعرف على أهم الـ Tags الأساسية</li>
+                <li>بناء مشروع بسيط: صفحة تعريف شخصية</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══════ INTRO ═══════ -->
+    <section class="section">
+        <h2 class="section-title">ما هو HTML؟</h2>
+        <div class="content-box">
+            <p><strong>HTML</strong> هو اختصار لـ <span class="key-term">HyperText Markup Language</span></p>
+            <p>يعني: <strong>لغة ترميز النصوص الفائقة</strong></p>
+
+            <div class="note">
+                <strong>⚠️ ملحوظة مهمة:</strong> HTML ليست لغة برمجة! هي لغة ترميز (Markup Language) تستخدم لبناء هيكل صفحات الويب.
+            </div>
+
+            <h4>🤔 لماذا نتعلم HTML؟</h4>
+            <ul>
+                <li>✅ HTML هو أساس أي صفحة ويب على الإنترنت</li>
+                <li>✅ بدون HTML لا يمكن بناء أي موقع</li>
+                <li>✅ لغة سهلة التعلم ومناسبة للمبتدئين</li>
+                <li>✅ مطلوبة في كل وظيفة Frontend Developer</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══════ STRUCTURE ═══════ -->
+    <section class="section">
+        <h2 class="section-title">البنية الأساسية لصفحة HTML</h2>
+        <p>كل صفحة HTML لها بنية أساسية ثابتة. تعال ننظر إليها:</p>
+
+        <!-- 🎨 Code Block 1 — Basic Structure -->
+        <div class="code-editor">
+            <div class="editor-bar">
+                <div class="editor-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="editor-filename">index.html</div>
+            </div>
+<pre><span class="comment">&lt;!-- هذا هو الهيكل الأساسي لأي صفحة HTML --&gt;</span>
+<span class="doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span><span class="equals">=</span><span class="value">"ar"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span><span class="equals">=</span><span class="value">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span><span class="text">صفحتي الأولى</span><span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;h1&gt;</span><span class="text">مرحباً بك في أول صفحة ويب!</span><span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;p&gt;</span><span class="text">هذه أول فقرة أكتبها بنفسي</span><span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></pre>
+        </div>
+
+        <h3 style="margin-top: 25px; color: var(--primary-dark);">📖 شرح الأجزاء:</h3>
+
+        <table>
+            <thead>
+                <tr><th>الجزء</th><th>الوظيفة</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>&lt;!DOCTYPE html&gt;</code></td><td>يخبر المتصفح أن هذا ملف HTML5</td></tr>
+                <tr><td><code>&lt;html&gt;</code></td><td>يحتوي على كل محتوى الصفحة</td></tr>
+                <tr><td><code>&lt;head&gt;</code></td><td>معلومات عن الصفحة (لا تظهر للمستخدم)</td></tr>
+                <tr><td><code>&lt;meta charset="UTF-8"&gt;</code></td><td>لدعم اللغة العربية والحروف الخاصة</td></tr>
+                <tr><td><code>&lt;title&gt;</code></td><td>عنوان الصفحة الذي يظهر في التاب</td></tr>
+                <tr><td><code>&lt;body&gt;</code></td><td>المحتوى الذي يظهر للمستخدم</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ═══════ TAGS ═══════ -->
+    <section class="section">
+        <h2 class="section-title">ما هي الـ Tags؟</h2>
+        <div class="content-box">
+            <p><span class="key-term">Tag (وسم)</span> هو أمر نخبر به المتصفح كيف يعرض المحتوى.</p>
+
+            <h4>🔹 شكل الـ Tag:</h4>
+            <ul>
+                <li><strong>Opening Tag (وسم فتح):</strong> <code>&lt;h1&gt;</code></li>
+                <li><strong>المحتوى:</strong> النص أو العناصر</li>
+                <li><strong>Closing Tag (وسم إغلاق):</strong> <code>&lt;/h1&gt;</code></li>
+            </ul>
+        </div>
+
+        <div class="example">
+            <h4>💡 مثال بسيط:</h4>
+            <div class="code-editor">
+                <div class="editor-bar">
+                    <div class="editor-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="editor-filename">example.html</div>
+                </div>
+<pre><span class="tag">&lt;h1&gt;</span><span class="text">هذا عنوان رئيسي</span><span class="tag">&lt;/h1&gt;</span></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════ COMMON TAGS ═══════ -->
+    <section class="section">
+        <h2 class="section-title">أهم الـ Tags الأساسية</h2>
+
+        <h3 style="color: var(--primary-dark); margin: 15px 0 10px;">📝 1. العناوين (Headings)</h3>
+        <div class="code-editor">
+            <div class="editor-bar">
+                <div class="editor-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="editor-filename">headings.html</div>
+            </div>
+<pre><span class="tag">&lt;h1&gt;</span><span class="text">العنوان الأكبر</span><span class="tag">&lt;/h1&gt;</span>
+<span class="tag">&lt;h2&gt;</span><span class="text">عنوان أصغر</span><span class="tag">&lt;/h2&gt;</span>
+<span class="tag">&lt;h3&gt;</span><span class="text">عنوان أصغر</span><span class="tag">&lt;/h3&gt;</span>
+<span class="tag">&lt;h4&gt;</span><span class="text">عنوان أصغر</span><span class="tag">&lt;/h4&gt;</span>
+<span class="tag">&lt;h5&gt;</span><span class="text">عنوان أصغر</span><span class="tag">&lt;/h5&gt;</span>
+<span class="tag">&lt;h6&gt;</span><span class="text">العنوان الأصغر</span><span class="tag">&lt;/h6&gt;</span></pre>
+        </div>
+
+        <div class="note">
+            <strong>💡 نصيحة:</strong> استخدم <code>&lt;h1&gt;</code> مرة واحدة فقط في الصفحة (للعنوان الرئيسي).
+        </div>
+
+        <h3 style="color: var(--primary-dark); margin: 25px 0 10px;">📄 2. الفقرات (Paragraphs)</h3>
+        <div class="code-editor">
+            <div class="editor-bar">
+                <div class="editor-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="editor-filename">paragraphs.html</div>
+            </div>
+<pre><span class="tag">&lt;p&gt;</span><span class="text">هذه فقرة نصية عادية</span><span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;p&gt;</span><span class="text">وهذه فقرة أخرى</span><span class="tag">&lt;/p&gt;</span></pre>
+        </div>
+
+        <h3 style="color: var(--primary-dark); margin: 25px 0 10px;">➡️ 3. السطر الجديد والخط الأفقي</h3>
+        <div class="code-editor">
+            <div class="editor-bar">
+                <div class="editor-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="editor-filename">line-breaks.html</div>
+            </div>
+<pre><span class="tag">&lt;br&gt;</span>   <span class="comment">&lt;!-- سطر جديد داخل الفقرة --&gt;</span>
+<span class="tag">&lt;hr&gt;</span>   <span class="comment">&lt;!-- خط أفقي فاصل --&gt;</span></pre>
+        </div>
+
+        <h3 style="color: var(--primary-dark); margin: 25px 0 10px;">💪 4. تنسيق النص</h3>
+        <div class="code-editor">
+            <div class="editor-bar">
+                <div class="editor-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="editor-filename">text-format.html</div>
+            </div>
+<pre><span class="tag">&lt;strong&gt;</span><span class="text">نص عريض (مهم)</span><span class="tag">&lt;/strong&gt;</span>
+<span class="tag">&lt;em&gt;</span><span class="text">نص مائل (تأكيد)</span><span class="tag">&lt;/em&gt;</span>
+<span class="tag">&lt;u&gt;</span><span class="text">نص تحته خط</span><span class="tag">&lt;/u&gt;</span></pre>
+        </div>
+    </section>
+
+    <!-- ═══════ PRACTICAL EXAMPLE ═══════ -->
+    <section class="section">
+        <h2 class="section-title">مثال عملي: صفحة تعريف شخصية</h2>
+        <p>الآن سنبني معاً أول مشروع حقيقي! 🎉</p>
+
+        <div class="code-editor">
+            <div class="editor-bar">
+                <div class="editor-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="editor-filename">profile.html</div>
+            </div>
+<pre><span class="doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span><span class="equals">=</span><span class="value">"ar"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span><span class="equals">=</span><span class="value">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span><span class="text">صفحتي الشخصية</span><span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;h1&gt;</span><span class="text">أحمد محمد</span><span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;h2&gt;</span><span class="text">طالب في Sunshine T Academy</span><span class="tag">&lt;/h2&gt;</span>
+    
+    <span class="tag">&lt;hr&gt;</span>
+    
+    <span class="tag">&lt;h3&gt;</span><span class="text">عن نفسي</span><span class="tag">&lt;/h3&gt;</span>
+    <span class="tag">&lt;p&gt;</span><span class="text">مرحباً! أنا أحمد، عمري 16 سنة</span><span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;p&gt;</span><span class="text">أحب البرمجة وأتعلم تطوير المواقع</span><span class="tag">&lt;/p&gt;</span>
+    
+    <span class="tag">&lt;h3&gt;</span><span class="text">هدفي</span><span class="tag">&lt;/h3&gt;</span>
+    <span class="tag">&lt;p&gt;</span>
+        <span class="text">هدفي هو أن أصبح </span>
+        <span class="tag">&lt;strong&gt;</span><span class="text">Frontend Developer</span><span class="tag">&lt;/strong&gt;</span>
+        <span class="text"> محترف!</span>
+    <span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></pre>
+        </div>
+
+        <div class="output">
+            <h1 style="color: #2c3e50; margin-bottom: 5px;">أحمد محمد</h1>
+            <h2 style="color: #7f8c8d; font-size: 1.15em; font-weight: 500;">طالب في Sunshine T Academy</h2>
+            <hr style="margin: 14px 0; border: 0; border-top: 1px solid #ddd;">
+            <h3 style="color: #34495e; margin-bottom: 6px;">عن نفسي</h3>
+            <p style="margin: 5px 0;">مرحباً! أنا أحمد، عمري 16 سنة</p>
+            <p style="margin: 5px 0;">أحب البرمجة وأتعلم تطوير المواقع</p>
+            <h3 style="color: #34495e; margin: 12px 0 6px;">هدفي</h3>
+            <p style="margin: 5px 0;">هدفي هو أن أصبح <strong>Frontend Developer</strong> محترف!</p>
+        </div>
+    </section>
+
+    <!-- ═══════ STEPS ═══════ -->
+    <section class="section">
+        <h2 class="section-title">خطوات إنشاء ملف HTML</h2>
+
+        <ol class="steps">
+            <li>افتح <strong>Notepad</strong> أو أي محرر نصوص (يفضل VS Code)</li>
+            <li>اكتب الكود السابق بنفسك</li>
+            <li>احفظ الملف باسم: <code>index.html</code></li>
+            <li>تأكد من اختيار <strong>Save as type: All Files</strong></li>
+            <li>اذهب إلى مكان الملف واضغط عليه مرتين</li>
+            <li>ستفتح الصفحة في المتصفح! 🎉</li>
+        </ol>
+
+        <div class="note">
+            <strong>⚠️ مهم جداً:</strong> احفظ الملف بامتداد <code>.html</code> وليس <code>.txt</code>
+        </div>
+    </section>
+
+    <!-- ═══════ SUMMARY ═══════ -->
+    <section class="section">
+        <h2 class="section-title">ملخص المحاضرة</h2>
+        <div class="summary">
+            <h3>✅ ما تعلمناه اليوم</h3>
+            <ul>
+                <li>HTML هي لغة ترميز لبناء صفحات الويب</li>
+                <li>البنية الأساسية: DOCTYPE, html, head, body</li>
+                <li>الـ Tags لها opening و closing</li>
+                <li>أهم الـ Tags: h1-h6, p, br, hr, strong, em, u</li>
+                <li>كيفية إنشاء ملف HTML وفتحه في المتصفح</li>
+                <li>بنينا أول مشروع: صفحة تعريف شخصية!</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ═══════ QUIZ ═══════ -->
+    <div class="quiz">
+        <h3>🧠 اختبر نفسك — 10 أسئلة اختيارية</h3>
+
+        <div class="question">
+            <h4>السؤال 1: ما معنى HTML؟</h4>
+            <ul class="options">
+                <li>A) High Text Markup Language</li>
+                <li>B) HyperText Markup Language</li>
+                <li>C) Home Tool Markup Language</li>
+                <li>D) Hyperlinks and Text Markup Language</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h4>السؤال 2: ما هو الـ Tag الصحيح لإنشاء عنوان رئيسي؟</h4>
+            <ul class="options">
+                <li>A) &lt;header&gt;</li>
+                <li>B) &lt;h6&gt;</li>
+                <li>C) &lt;h1&gt;</li>
+                <li>D) &lt;heading&gt;</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h4>السؤال 3: أي جزء يحتوي على المحتوى الذي يظهر للمستخدم؟</h4>
+            <ul class="options">
+                <li>A) &lt;head&gt;</li>
+                <li>B) &lt;title&gt;</li>
+                <li>C) &lt;body&gt;</li>
+                <li>D) &lt;html&gt;</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h4>السؤال 4: ما هو الامتداد الصحيح لملف HTML؟</h4>
+            <ul class="options">
+                <li>A) .txt</li>
+                <li>B) .doc</li>
+                <li>C) .html</li>
+                <li>D) .web</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h4>السؤال 5: ما فائدة &lt;!DOCTYPE html&gt;؟</h4>
+            <ul class="options">
+                <li>A) يخبر المتصفح أن هذا ملف HTML5</li>
+                <li>B) يضيف تنسيق للصفحة</li>
+                <li>C) يجعل الصفحة أسرع</li>
+                <li>D) ليس له فائدة</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h4>السؤال 6: ما هو الـ Tag المستخدم لإنشاء فقرة؟</h4>
+            <ul class="options">
+                <li>A) &lt;paragraph&gt;</li>
+                <li>B) &lt;p&gt;</li>
+                <li>C) &lt;para&gt;</li>
+                <li>D) &lt;text&gt;</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h4>السؤال 7: أي tag يستخدم لجعل النص عريض (مهم)؟</h4>
+            <ul class="options">
+                <li>A) &lt;b&gt;</li>
+                <li>B) &lt;bold&gt;</li>
+                <li>C) &lt;strong&gt;</li>
+                <li>D) &lt;em&gt;</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h4>السؤال 8: كم عدد مستويات العناوين في HTML؟</h4>
+            <ul class="options">
+                <li>A) 3</li>
+                <li>B) 5</li>
+                <li>C) 6</li>
+                <li>D) 8</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h4>السؤال 9: ما هو الـ tag لإنشاء سطر جديد؟</h4>
+            <ul class="options">
+                <li>A) &lt;newline&gt;</li>
+                <li>B) &lt;br&gt;</li>
+                <li>C) &lt;line&gt;</li>
+                <li>D) &lt;nl&gt;</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <h4>السؤال 10: أين نضع عنوان الصفحة الذي يظهر في التاب؟</h4>
+            <ul class="options">
+                <li>A) في &lt;body&gt;</li>
+                <li>B) في &lt;title&gt; داخل &lt;head&gt;</li>
+                <li>C) في &lt;h1&gt;</li>
+                <li>D) في &lt;header&gt;</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ═══════ HOMEWORK ═══════ -->
+    <div class="homework">
+        <h3>📝 الواجب — 5 مسائل عملية</h3>
+
+        <div class="task">
+            <h4>المسألة 1: صفحة "عن المدرسة"</h4>
+            <p><strong>المطلوب:</strong> أنشئ صفحة HTML تحتوي على:</p>
+            <ul>
+                <li>عنوان رئيسي: اسم مدرستك</li>
+                <li>عنوان فرعي: الشعار</li>
+                <li>فقرة تتحدث عن المدرسة</li>
+                <li>خط فاصل (&lt;hr&gt;)</li>
+                <li>فقرة أخرى عن أنشطة المدرسة</li>
+            </ul>
+        </div>
+
+        <div class="task">
+            <h4>المسألة 2: صفحة "هوايتي المفضلة"</h4>
+            <p><strong>المطلوب:</strong> أنشئ صفحة تتحدث عن هوايتك المفضلة مستخدماً:</p>
+            <ul>
+                <li>&lt;h1&gt; للعنوان الرئيسي</li>
+                <li>&lt;h2&gt; لعنوان فرعي</li>
+                <li>3 فقرات على الأقل</li>
+                <li>استخدم &lt;strong&gt; و &lt;em&gt; في النصوص</li>
+            </ul>
+        </div>
+
+        <div class="task">
+            <h4>المسألة 3: صفحة "أهدافي"</h4>
+            <p><strong>المطلوب:</strong> اكتب صفحة تتحدث عن أهدافك:</p>
+            <ul>
+                <li>عنوان رئيسي: "أهدافي المستقبلية"</li>
+                <li>عنوان فرعي: "أهداف قصيرة المدى"</li>
+                <li>فقرتين عن أهدافك القريبة</li>
+                <li>عنوان فرعي: "أهداف بعيدة المدى"</li>
+                <li>فقرتين عن أحلامك المستقبلية</li>
+            </ul>
+        </div>
+
+        <div class="task">
+            <h4>المسألة 4: تصحيح الأخطاء</h4>
+            <p><strong>المطلوب:</strong> ابحث عن الأخطاء وصححها في الكود التالي:</p>
+            <div class="code-editor">
+                <div class="editor-bar">
+                    <div class="editor-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="editor-filename">buggy.html</div>
+                </div>
+<pre><span class="doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;title&gt;</span><span class="text">صفحتي</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;h1&gt;</span><span class="text">مرحباً</span>
+    <span class="tag">&lt;p&gt;</span><span class="text">هذه صفحتي</span><span class="tag">&lt;/h1&gt;</span>
+<span class="tag">&lt;/body&gt;</span></pre>
+            </div>
+        </div>
+
+        <div class="task">
+            <h4>المسألة 5: مشروع حر</h4>
+            <p><strong>المطلوب:</strong> أنشئ صفحة HTML عن أي موضوع تحبه!</p>
+            <p><strong>الشروط:</strong></p>
+            <ul>
+                <li>استخدم البنية الأساسية الصحيحة</li>
+                <li>استخدم على الأقل 5 tags مختلفة</li>
+                <li>اجعل المحتوى ذو معنى</li>
+                <li>احفظ الملف بامتداد .html</li>
+                <li>افتحه في المتصفح وتأكد أنه يعمل</li>
+            </ul>
+        </div>
+
+        <div class="note" style="margin-top: 20px;">
+            <strong>💡 نصيحة للواجب:</strong> اكتب الكود بنفسك من الصفر — لا تنسخ ولا تلصق! التطبيق العملي هو السر في تعلم البرمجة.
+        </div>
+    </div>
+
+    <!-- ═══════ FOOTER ═══════ -->
+    <footer class="footer">
+        <p><strong>Sunshine T Academy</strong></p>
+        <p>"بنحوّل الحلم لكود"</p>
+        <p>Frontend Development Course — المحاضرة الأولى</p>
+        <div class="next-lecture">
+            📅 المحاضرة القادمة: <strong>النصوص والعناوين والفقرات بالتفصيل</strong>
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>
